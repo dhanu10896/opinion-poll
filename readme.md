@@ -28,13 +28,14 @@ selectChoice(String questionId, String choiseId, String userId)
 there can be millions of users/polls in system.  
 
  4.  Model  For System
-`USER: ID, FULL_NAME, USERNAME, EMAIL, PASSWORD, CREATED_AT, 		UPDATED_AT  
-POLL: ID, USER_ID, NAME, IS_PUBLIC, IS_ACTIVE, EXPIRATION_DATE_TIME, CREATED_BY, UPDATED_BY,CREATED_AT, UPDATED_AT  
-QUESTION : ID, POLL_ID, VALUE  
-CHOICE : ID, QUESTION_ID, VALUE 
-VOTE : ID, QUESTION_ID, CHOCE_ID, USER_ID
-` 
-*(mysql db will be used)
+ 
+        `USER: ID, FULL_NAME, USERNAME, EMAIL, PASSWORD, CREATED_AT, 		UPDATED_AT `  
+        `POLL: ID, USER_ID, NAME, IS_PUBLIC, IS_ACTIVE, EXPIRATION_DATE_TIME, CREATED_BY, UPDATED_BY,CREATED_AT, UPDATED_AT`  
+        `QUESTION : ID, POLL_ID, VALUE`  
+        `CHOICE : ID, QUESTION_ID, VALUE`  
+        `VOTE : ID, QUESTION_ID, CHOCE_ID, USER_ID`
+ 
+            *(mysql db will be used)
   
   
   
