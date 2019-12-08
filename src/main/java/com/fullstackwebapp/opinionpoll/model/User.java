@@ -47,8 +47,19 @@ public class User extends DateAudit {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User() {
+    @Column(name = "enabled")
+    private boolean enabled;
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public User() {
+        this.enabled = false;
     }
 
     public User(String fullName, String username, String email, String password) {
