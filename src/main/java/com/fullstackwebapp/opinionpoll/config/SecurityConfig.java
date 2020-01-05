@@ -57,11 +57,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/api/auth/**")
                 .permitAll()
-                .antMatchers("/signin","/singup","login","register")
+                .antMatchers("/*")
+                .permitAll()
+                .antMatchers("/*/*")
+                .permitAll()
+                .antMatchers("/*/*/*")
+                .permitAll()
+                .antMatchers("/signin","/singup","/login","/register")
                 .permitAll()
                 .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
                 .permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();//authenticate();
     }
 
     @Bean

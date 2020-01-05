@@ -8,7 +8,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "question")
@@ -21,15 +23,11 @@ public class Question {
     @Size(max = 400)
     private String value;
 
-    @ManyToOne
-    private Poll poll;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id")
     @Size(min = 2, max = 10)
-    @Fetch(FetchMode.SELECT)
-    @BatchSize(size = 30)
-    private List<Choice> choices = new ArrayList<>();
+    private Set<Choice> choices = new HashSet<>();
 
 
     public Long getId() {
@@ -48,19 +46,11 @@ public class Question {
         this.value = value;
     }
 
-    public Poll getPoll() {
-        return poll;
-    }
-
-    public void setPoll(Poll poll) {
-        this.poll = poll;
-    }
-
-    public List<Choice> getChoices() {
+    public Set<Choice> getChoices() {
         return choices;
     }
 
-    public void setChoices(List<Choice> choices) {
+    public void setChoices(Set<Choice> choices) {
         this.choices = choices;
     }
 

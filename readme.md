@@ -57,3 +57,7 @@ cause total system shutdown?
 	4. How are we monitoring the performance of our service? Do we get alerts whenever critical  
 components fail or their performance degrade?  
   
+
+
+
+
