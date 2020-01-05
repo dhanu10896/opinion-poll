@@ -3,6 +3,8 @@ package com.fullstackwebapp.opinionpoll.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +22,11 @@ public class Choice {
     public Choice() {
 
     }
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "choice_id")
+    private List<Vote> votes = new ArrayList<>();
+
 
     public Long getId() {
         return id;

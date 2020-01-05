@@ -3,13 +3,14 @@ package com.fullstackwebapp.opinionpoll.model;
 import com.fullstackwebapp.opinionpoll.model.audit.DateAudit;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "votes", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
-                "question_id",
                 "user_id",
-                "choice_id"
+                "choice_id",
+                "question_id"
         })
 })
 public class Vote extends DateAudit {
@@ -17,17 +18,25 @@ public class Vote extends DateAudit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "question_id", nullable = false)
-    private Question question;
-
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "choice_id", nullable = false)
     private Choice choice;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "question_id", nullable = false)
+    private Question question;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -37,14 +46,6 @@ public class Vote extends DateAudit {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
     }
 
     public Choice getChoice() {
