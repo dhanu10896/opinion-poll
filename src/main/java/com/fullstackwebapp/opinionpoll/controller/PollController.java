@@ -1,5 +1,6 @@
 package com.fullstackwebapp.opinionpoll.controller;
 
+import com.fullstackwebapp.opinionpoll.PollService;
 import com.fullstackwebapp.opinionpoll.model.Choice;
 import com.fullstackwebapp.opinionpoll.model.Poll;
 import com.fullstackwebapp.opinionpoll.model.Question;
@@ -7,17 +8,12 @@ import com.fullstackwebapp.opinionpoll.model.Vote;
 import com.fullstackwebapp.opinionpoll.payloads.VoteRequest;
 import com.fullstackwebapp.opinionpoll.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
-import javax.websocket.server.PathParam;
-import java.util.Random;
-import java.util.Set;
 
 @RestController
 public class PollController {
@@ -25,6 +21,8 @@ public class PollController {
     @Autowired
     PollRepository pollRepository;
 
+    @Autowired
+    PollService pollService;
 
     @Autowired
     VoteRepository voteRepository;
@@ -52,8 +50,14 @@ public class PollController {
 
     @PostMapping("/polls")
     public ResponseEntity<Poll> createPolls(@Valid @RequestBody Poll poll) {
-        pollRepository.save(poll);
+        pollService.savePoll(poll);
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/polls/{pollId}")
+    public ResponseEntity deletePoll(@PathVariable("pollId") Long pollId) {
+        pollRepository.deleteById(pollId);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/polls/{pollId}")
@@ -63,10 +67,13 @@ public class PollController {
         poll.setName(newPool.getName());
         poll.setExpirationDateTime(newPool.getExpirationDateTime());
         poll.setPublic(newPool.isPublic());
-        for (Question question : newPool.getQuestion()) {
+        questionRepository.deleteAll(poll.getQuestions());
+        poll.getQuestions().clear();
+        for (Question question : newPool.getQuestions()) {
             if (question.getId()!=null) {
                 Question  question1 = questionRepository.getOne(question.getId());
                 question1.setValue(question.getValue());
+
                 for (Choice choice : question.getChoices()) {
                     if (choice.getId()!=null) {
                         Choice existing = choiceRepository.getOne(choice.getId());
@@ -76,10 +83,9 @@ public class PollController {
                         question1.getChoices().add(choice);
                     }
                 }
-                poll.getQuestion().remove(question1);
-                poll.getQuestion().add(question1);
+                poll.getQuestions().add(question1);
             } else {
-              poll.getQuestion().add(question);
+              poll.getQuestions().add(question);
             }
         }
 

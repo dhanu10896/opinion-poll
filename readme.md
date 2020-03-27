@@ -1,10 +1,10 @@
 1. Requirements
 	1. system will support authentication, authorization, different user roles     (google/facebook sign in, email verified username password authentication)  
 	2. any user can will be able to create poll, with expiration Date Time  
-	3. poll can have multiple question with multiple choices  
+	3. poll can have multiple questions with multiple choices  
 	4. link for for poll will be shared with users once poll becomes active  
 	5. other users will be add poll to watchlist if poll is public or else only admin will have access to it  
-	6. admin will be able to see  graph based result per question for given poll.  
+	6. admin will be able to see  graph based result per questions for given poll.  
 	7. super admins will be able to review and activate poll if it satisfies content policies.  
 	8. system should have monitoring system to give health of system and various services, also should  generate alerts about failures/load/performance.  
 	
@@ -57,7 +57,11 @@ cause total system shutdown?
 	4. How are we monitoring the performance of our service? Do we get alerts whenever critical  
 components fail or their performance degrade?  
   
+Delivery Driver (Non-CDL) - Southeast
 
+This User can act as Coordinator/Distributor	
 
-
+•	Create a user role and disable the flag View Supplier name in user role permission. 
+•	Create a User and assign the same user role to it. Enable the flag ‘User can act as coordinator’.  
+•	Verify that User will always see the supplier name regardless of the setting on their user role.
 

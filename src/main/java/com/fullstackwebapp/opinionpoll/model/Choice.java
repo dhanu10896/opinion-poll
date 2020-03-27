@@ -4,8 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "choices")
@@ -23,9 +24,9 @@ public class Choice {
 
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "choice_id")
-    private List<Vote> votes = new ArrayList<>();
+    private Set<Vote> votes = new HashSet<>();
 
 
     public Long getId() {
@@ -50,11 +51,12 @@ public class Choice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Choice choice = (Choice) o;
+        if (id == null) return false;//for first timers set should contain id
         return Objects.equals(id, choice.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return 31;
     }
 }
