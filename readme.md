@@ -1,3 +1,17 @@
+DONE
+1. rest end points for user registration, email verification, login
+2. rest end points for poll creation, voting, result counting
+4. all the functional repositories and entities
+3. GraphQL endpoints for poll related operations
+4. migration to h2 database
+
+TODO:
+1. exception handling for all the rest endpoints
+2. ui
+ 
+
+
+HLD:
 1. Requirements
 	1. system will support authentication, authorization, different user roles     (google/facebook sign in, email verified username password authentication)  
 	2. any user can will be able to create poll, with expiration Date Time  
@@ -49,19 +63,3 @@ todo: add block diagram
 		3. what are some bottlenecks in system and what can be done about those.  
 		4. What components need better load balancing?  
   
-7. Identifying and resolving bottlenecks  (To Do)
-	1. Is there any single point of failure in our system? What are we doing to mitigate it?  
-	2. Do we’ve enough replicas of the data so that if we lose a few servers, we can still serve our users?  
-	3. Similarly, do we’ve enough copies of different services running, such that a few failures will not  
-cause total system shutdown?  
-	4. How are we monitoring the performance of our service? Do we get alerts whenever critical  
-components fail or their performance degrade?  
-  
-Delivery Driver (Non-CDL) - Southeast
-
-This User can act as Coordinator/Distributor	
-
-•	Create a user role and disable the flag View Supplier name in user role permission. 
-•	Create a User and assign the same user role to it. Enable the flag ‘User can act as coordinator’.  
-•	Verify that User will always see the supplier name regardless of the setting on their user role.
-

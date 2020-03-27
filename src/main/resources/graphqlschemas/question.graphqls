@@ -1,0 +1,6 @@
+type Question {
+	id: ID!
+	value: String!
+	choices: [Choice]!
+}
+
