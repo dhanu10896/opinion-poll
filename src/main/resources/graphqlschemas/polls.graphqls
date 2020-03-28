@@ -1,0 +1,18 @@
+type Poll {
+	id: ID!
+	name: String!
+	isActive: Boolean
+    isPublic: Boolean
+    questions:[Question]!
+
+}
+
+# Root
+type Query {
+	findAllPolls(page:Int, limit:Int): [Poll]!
+}
+
+# Root
+type Mutation {
+	updatePollName(id:ID!, name: String!): Poll!
+}

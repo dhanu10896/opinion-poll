@@ -1,0 +1,26 @@
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    hostname: 127.0.0.1
+    prefer-ip-address: true
+    instance-id: dgn
+    ip-address: 127.0.0.1
+    non-secure-port: 5001
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+
+
+
+spring:
+  cloud:
+    config:
+      enabled: false
+
+  application:
+    name: polling-service

@@ -2,15 +2,10 @@ package com.fullstackwebapp.opinionpoll.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fullstackwebapp.opinionpoll.model.audit.UserDateAudit;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.Instant;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,9 +27,9 @@ public class Poll extends UserDateAudit {
     @ManyToOne
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "poll_id")
-    private Set<Question> question;
+    private Set<Question> questions;
 
 
     @NotNull
@@ -89,12 +84,12 @@ public class Poll extends UserDateAudit {
         this.user = user;
     }
 
-    public Set<Question> getQuestion() {
-        return question;
+    public Set<Question> getQuestions() {
+        return questions;
     }
 
-    public void setQuestion(Set<Question> question) {
-        this.question = question;
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
     }
 
 }

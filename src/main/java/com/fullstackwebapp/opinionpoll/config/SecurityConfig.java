@@ -43,8 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().disable().httpBasic()
-                .and().authorizeRequests()
+        http.csrf().disable()
+                .cors().disable()
+                .headers().frameOptions().sameOrigin()
+                .and()
+                .httpBasic()
+                .and()
+                .authorizeRequests()
                 .antMatchers("/",
                         "/favicon.ico",
                         "/**/*.png",
@@ -63,7 +68,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/*/*/*")
                 .permitAll()
-                .antMatchers("/signin","/singup","/login","/register")
+                .antMatchers("/signin","/singup"
+                        ,"/login","/register","/h2"
+                        ,"/graphql","/graphiql")
                 .permitAll()
                 .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
                 .permitAll()

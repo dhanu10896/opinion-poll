@@ -122,7 +122,7 @@ public class AuthController {
             authWithoutPassword(user);
 
         }
-        return new ResponseEntity(new ApiResponse(false,
+        return new ResponseEntity(new ApiResponse("valid".equals(result),
                 result),
                 HttpStatus.OK);
     }

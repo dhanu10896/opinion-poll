@@ -1,16 +1,9 @@
 package com.fullstackwebapp.opinionpoll.model;
 
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "question")
@@ -24,10 +17,9 @@ public class Question {
     private String value;
 
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "question_id")
-    @Size(min = 2, max = 10)
-    private Set<Choice> choices = new HashSet<>();
+    private Set<Choice> choices;
 
 
     public Long getId() {
@@ -58,14 +50,14 @@ public class Question {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (id == null) return false;//for first timers set should contain id
 
         Question question = (Question) o;
-
         return id.equals(question.id);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return 31;
     }
 }

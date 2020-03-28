@@ -1,10 +1,24 @@
+DONE
+1. rest end points for user registration, email verification, login
+2. rest end points for poll creation, voting, result counting
+4. all the functional repositories and entities
+3. GraphQL endpoints for poll related operations
+4. migration to h2 database
+
+TODO:
+1. exception handling for all the rest endpoints
+2. ui
+ 
+
+
+HLD:
 1. Requirements
 	1. system will support authentication, authorization, different user roles     (google/facebook sign in, email verified username password authentication)  
 	2. any user can will be able to create poll, with expiration Date Time  
-	3. poll can have multiple question with multiple choices  
+	3. poll can have multiple questions with multiple choices  
 	4. link for for poll will be shared with users once poll becomes active  
 	5. other users will be add poll to watchlist if poll is public or else only admin will have access to it  
-	6. admin will be able to see  graph based result per question for given poll.  
+	6. admin will be able to see  graph based result per questions for given poll.  
 	7. super admins will be able to review and activate poll if it satisfies content policies.  
 	8. system should have monitoring system to give health of system and various services, also should  generate alerts about failures/load/performance.  
 	
@@ -49,15 +63,3 @@ todo: add block diagram
 		3. what are some bottlenecks in system and what can be done about those.  
 		4. What components need better load balancing?  
   
-7. Identifying and resolving bottlenecks  (To Do)
-	1. Is there any single point of failure in our system? What are we doing to mitigate it?  
-	2. Do we’ve enough replicas of the data so that if we lose a few servers, we can still serve our users?  
-	3. Similarly, do we’ve enough copies of different services running, such that a few failures will not  
-cause total system shutdown?  
-	4. How are we monitoring the performance of our service? Do we get alerts whenever critical  
-components fail or their performance degrade?  
-  
-
-
-
-

@@ -37,7 +37,7 @@ public class EmailVerificationListener implements ApplicationListener<UserRegist
         email.setTo(recipientAddress);
         email.setSubject(subject);
         email.setText("click here to verify" +
-                ": " + " rn" + "http://localhost:5000/api/auth/confirmRegitration/"+token);
+                ": " + "http://localhost:5000/api/auth/confirmRegitration/"+token);
         javaMailSender.send(email);
 
     }

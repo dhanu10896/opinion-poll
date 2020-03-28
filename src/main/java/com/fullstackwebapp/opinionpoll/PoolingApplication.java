@@ -13,7 +13,9 @@ import java.util.TimeZone;
         PoolingApplication.class,
         Jsr310JpaConverters.class
 })
-
+//@EnableEurekaClient
+//@EnableDiscoveryClient
+//@EnableFeignClients
 public class PoolingApplication {
 
     @PostConstruct
