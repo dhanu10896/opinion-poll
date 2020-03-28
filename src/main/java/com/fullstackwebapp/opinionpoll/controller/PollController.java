@@ -8,15 +8,21 @@ import com.fullstackwebapp.opinionpoll.model.Vote;
 import com.fullstackwebapp.opinionpoll.payloads.VoteRequest;
 import com.fullstackwebapp.opinionpoll.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
 
 @RestController
 public class PollController {
+
+    @Autowired
+    RestTemplate restTemplate;
 
     @Autowired
     PollRepository pollRepository;
@@ -110,4 +116,9 @@ public class PollController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 }
