@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -62,18 +63,21 @@ public class PollController {
     }
 
     @PostMapping("/polls")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Poll> createPolls(@Valid @RequestBody Poll poll) {
         pollService.savePoll(poll);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/polls/{pollId}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity deletePoll(@PathVariable("pollId") Long pollId) {
         pollRepository.deleteById(pollId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/polls/{pollId}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<Poll> createPolls(@PathVariable("pollId") Long pollId, @Valid @RequestBody Poll newPool) {
 
         Poll poll = pollRepository.getOne(pollId);
@@ -105,9 +109,6 @@ public class PollController {
         pollRepository.save(poll);
        return new ResponseEntity(HttpStatus.OK);
     }
-
-
-
 
 
     @PostMapping("/polls/{pollId}/questions/{questionId}/votes")

@@ -6,11 +6,13 @@ import com.fullstackwebapp.opinionpoll.model.Role;
 import com.fullstackwebapp.opinionpoll.model.RoleName;
 import com.fullstackwebapp.opinionpoll.model.User;
 import com.fullstackwebapp.opinionpoll.payloads.ApiResponse;
+import com.fullstackwebapp.opinionpoll.payloads.JwtAuthenticationResponse;
 import com.fullstackwebapp.opinionpoll.payloads.LoginRequest;
 import com.fullstackwebapp.opinionpoll.payloads.SignUpRequest;
 import com.fullstackwebapp.opinionpoll.repository.RoleRepository;
 import com.fullstackwebapp.opinionpoll.repository.UserRepository;
 import com.fullstackwebapp.opinionpoll.repository.security.VerificationTokenRepository;
+import com.fullstackwebapp.opinionpoll.security.JwtTokenProvider;
 import com.fullstackwebapp.opinionpoll.security.event.UserRegistrationEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -56,13 +58,25 @@ public class AuthController {
     @Autowired
     ApplicationEventPublisher applicationEventPublisher;
 
+    @Autowired
+    JwtTokenProvider tokenProvider;
+
 //    @Autowired
 //    JwtTokenProvider tokenProvider;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
-        return ResponseEntity.ok(SecurityContextHolder.getContext().getAuthentication().getName());
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getUsernameOrEmail(),
+                        loginRequest.getPassword()
+                )
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = tokenProvider.generateToken(authentication);
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
     @PostMapping("/signup")
