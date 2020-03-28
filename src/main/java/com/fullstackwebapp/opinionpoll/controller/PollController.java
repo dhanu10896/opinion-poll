@@ -10,12 +10,14 @@ import com.fullstackwebapp.opinionpoll.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityManager;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 public class PollController {
@@ -45,12 +47,18 @@ public class PollController {
     EntityManager entityManager;
 
     @GetMapping("/polls")
-    public ResponseEntity<Poll> getPolls() {
-        return new ResponseEntity(pollRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<Poll>> getPolls() {
+        return  ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(pollRepository.findAll());
     }
     @GetMapping("/polls/{pollId}")
     public ResponseEntity<Poll> getPoll(@PathVariable("pollId") Long pollId) {
-        return new ResponseEntity(pollRepository.getOne(pollId), HttpStatus.OK);
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(pollRepository.getOne(pollId));
     }
 
     @PostMapping("/polls")

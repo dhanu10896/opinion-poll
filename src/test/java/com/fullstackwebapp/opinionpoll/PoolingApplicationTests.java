@@ -11,17 +11,12 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PoolingApplicationTests {
-
-	@Autowired
-	RestTemplate restTemplate;
-
 
 	@Test
 	public void contextLoads() {
-		Iterable<Poll> polls = restTemplate.getForObject("http://127.0.0.1:5000/polls", Iterable.class);
-		System.out.println(polls);
+
 	}
 
 }
