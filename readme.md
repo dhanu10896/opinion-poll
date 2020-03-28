@@ -1,14 +1,25 @@
 DONE
-1. rest end points for user registration, email verification, login
-2. rest end points for poll creation, voting, result counting
-4. all the functional repositories and entities
-3. GraphQL endpoints for poll related operations
-4. migration to h2 database
+1.  rest end points for user registration, email verification, login
+2.  rest end points for poll creation, voting, result counting
+4.  all the functional repositories and entities
+3.  GraphQL endpoints for poll related operations
+4.  migration to h2 database
+5.  added eureka service discovery
+7.  added zuul api gateway/ proxy server
+8.  registered polling service as eureka client 
+9.  added some integration tests and unit tests
+10. added swagger documentation
+11. consumed number to word soap web service
+12. added spring security
 
 TODO:
-1. exception handling for all the rest endpoints
-2. ui
- 
+1.  exception handling for all the rest endpoints
+2.  ui (preferably react)
+3.  comment microservice
+4.  tests for every feature
+5.  rest api good practices
+6.  NoSQL
+
 
 
 HLD:
